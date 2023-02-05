@@ -7,3 +7,9 @@
         - virtualenv
         update_cache: yes
       become: yes
+    - name: Instalando dependencias com pip (django e django rest)
+      pip:
+        virtualenv: /home/ubuntu/tcc/venv
+        name:
+          - django
+          - djangorestframework
