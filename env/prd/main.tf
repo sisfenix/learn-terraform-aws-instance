@@ -5,5 +5,8 @@ module "aws-prd" {
   regiao_aws = "us-east-1"
   chave = "IaC-PRD"
   tagName = "Terraform Ansible - Producao"
-  
+}
+
+output "IP" {
+  value = module.aws-prd.IP_Publico
 }

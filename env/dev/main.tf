@@ -6,3 +6,7 @@ module "aws-dev" {
   chave = "IaC-DEV"
   tagName = "Terraform Ansible - Desenv"
 }
+
+output "IP" {
+  value = module.aws-dev.IP_Publico
+}
