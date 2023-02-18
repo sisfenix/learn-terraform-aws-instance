@@ -13,15 +13,16 @@ provider "aws" {
   region = var.regiao_aws
 }
 
-resource "aws_instance" "app_server" {
-  ami           = var.imagem
+resource "aws_launch_template" "maquina" {
+  image_id      = var.imagem
   instance_type = var.instancia
   key_name      = var.chave
 
   tags = {
-    Name = "Terraform Ansible Python"
     Name = var.tagName
   }
+
+  security_group_names = [var.grupoDeSeguraca]
 }
 
 resource "aws_key_pair" "chaveSSH" {
@@ -30,5 +31,16 @@ resource "aws_key_pair" "chaveSSH" {
 }
 
 output "IP_Publico" {
-  value = aws_instance.app_server.public_ip
+  value = "corrigir" #aws_instance.maquina.public_ipblic_ip
+}
+
+resource "aws_autoscaling_group" "grupoAS" {
+  availability_zones = ["${var.regiao_aws}a"]
+  name               = var.nomeGrupoAS
+  max_size           = var.maximoGrupoAS
+  min_size           = var.minimoGrupoAS
+  launch_template {
+    id      = aws_launch_template.maquina.id
+    version = "$Latest"
+  }
 }

@@ -17,3 +17,19 @@ variable "tagName" {
 variable "imagem" {
   type = string
 }
+
+variable "grupoDeSeguraca" {
+  type = string
+}
+
+variable "nomeGrupoAS" {
+  type = string
+}
+
+variable "minimoGrupoAS" {
+  type = number
+}
+
+variable "maximoGrupoAS" {
+  type = number
+}
