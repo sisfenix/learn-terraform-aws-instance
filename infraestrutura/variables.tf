@@ -11,7 +11,7 @@ variable "instancia" {
 }
 
 variable "tagName" {
-  type = string  
+  type = string
 }
 
 variable "imagem" {

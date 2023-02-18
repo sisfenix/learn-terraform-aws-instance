@@ -10,13 +10,13 @@ terraform {
 }
 
 provider "aws" {
-  region  = var.regiao_aws
+  region = var.regiao_aws
 }
 
 resource "aws_instance" "app_server" {
   ami           = var.imagem
   instance_type = var.instancia
-  key_name = var.chave
+  key_name      = var.chave
 
   tags = {
     Name = "Terraform Ansible Python"
@@ -25,8 +25,8 @@ resource "aws_instance" "app_server" {
 }
 
 resource "aws_key_pair" "chaveSSH" {
-  key_name = var.chave
-  public_key = file(".ssh/${var.chave}.pub")  
+  key_name   = var.chave
+  public_key = file(".ssh/${var.chave}.pub")
 }
 
 output "IP_Publico" {
