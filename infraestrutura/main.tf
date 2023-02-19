@@ -45,7 +45,7 @@ resource "aws_autoscaling_group" "grupoAS" {
     id      = aws_launch_template.maquina.id
     version = "$Latest"
   }
-  target_group_arns = [aws_lb_target_group.lb_target_group.arn]
+  target_group_arns = var.producao ? [aws_lb_target_group.lb_target_group[0].arn] : []
 }
 
 resource "aws_default_subnet" "subnet_a" {
@@ -59,6 +59,7 @@ resource "aws_default_subnet" "subnet_b" {
 resource "aws_lb" "loadBalancer" {
   internal = false
   subnets  = [aws_default_subnet.subnet_a.id, aws_default_subnet.subnet_b.id]
+  count    = var.producao ? 1 : 0
 }
 
 resource "aws_lb_target_group" "lb_target_group" {
@@ -66,19 +67,21 @@ resource "aws_lb_target_group" "lb_target_group" {
   port     = "8000"
   protocol = "HTTP"
   vpc_id   = aws_default_vpc.default.id
+  count    = var.producao ? 1 : 0
 }
 
 resource "aws_default_vpc" "default" {
 }
 
 resource "aws_lb_listener" "listenerLoadBalance" {
-  load_balancer_arn = aws_lb.loadBalancer.arn
+  load_balancer_arn = aws_lb.loadBalancer[0].arn
   port              = "8000"
   protocol          = "HTTP"
   default_action {
     type             = "forward"
-    target_group_arn = aws_lb_target_group.lb_target_group.arn
+    target_group_arn = aws_lb_target_group.lb_target_group[0].arn
   }
+  count = var.producao ? 1 : 0
 }
 
 resource "aws_autoscaling_policy" "pol_autoscaling_producao" {
@@ -91,4 +94,5 @@ resource "aws_autoscaling_policy" "pol_autoscaling_producao" {
     }
     target_value = 50.0
   }
+  count = var.producao ? 1 : 0
 }
