@@ -23,6 +23,8 @@ resource "aws_launch_template" "maquina" {
   }
 
   security_group_names = [var.grupoDeSeguraca]
+  user_data            = filebase64("./ansible.sh")
+
 }
 
 resource "aws_key_pair" "chaveSSH" {
