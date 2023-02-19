@@ -9,6 +9,7 @@ module "aws-dev" {
   minimoGrupoAS   = 1
   maximoGrupoAS   = 1
   nomeGrupoAS     = "DEV-AS"
+  producao        = false
 }
 
 output "IP" {

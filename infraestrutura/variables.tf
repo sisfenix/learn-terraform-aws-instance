@@ -33,3 +33,7 @@ variable "minimoGrupoAS" {
 variable "maximoGrupoAS" {
   type = number
 }
+
+variable "producao" {
+  type = bool
+}

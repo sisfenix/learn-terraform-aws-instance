@@ -23,7 +23,7 @@ resource "aws_launch_template" "maquina" {
   }
 
   security_group_names = [var.grupoDeSeguraca]
-  user_data            = filebase64("./ansible.sh")
+  user_data            = var.producao ? filebase64("./ansible.sh") : ""
 
 }
 

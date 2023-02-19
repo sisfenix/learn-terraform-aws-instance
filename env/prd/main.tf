@@ -9,6 +9,7 @@ module "aws-prd" {
   minimoGrupoAS   = 1
   maximoGrupoAS   = 10
   nomeGrupoAS     = "PRD-AS"
+  producao        = true
 }
 
 output "IP" {
